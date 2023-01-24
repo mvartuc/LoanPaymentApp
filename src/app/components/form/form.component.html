@@ -19,12 +19,21 @@
             href="#"
             id="dropDown-{{ category.code }}"
             data-bs-toggle="dropdown"
-            aria-expanded="false">
+            aria-expanded="false"
+          >
             &gt;{{ category.displayName }}
           </a>
-          <ul class="dropdown-menu" attr.aria-labelledby="dropDown-{{ category.code }}">
+          <ul
+            class="dropdown-menu"
+            attr.aria-labelledby="dropDown-{{ category.code }}"
+          >
             <li *ngFor="let childCategory of category.childCategories">
-                <a (click)="selectCategory(childCategory)" href="#" class="dropdown-item dropdown-child-item">{{ childCategory.displayName }}</a>
+              <a
+                (click)="selectCategory(childCategory)"
+                href="#"
+                class="dropdown-item dropdown-child-item"
+                >{{ childCategory.displayName }}</a
+              >
             </li>
           </ul>
         </li>
