@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ChildCategory, ParentCategory } from 'src/app/models/category';
+
 
 @Component({
   selector: 'app-form',
@@ -8,6 +9,7 @@ import { ChildCategory, ParentCategory } from 'src/app/models/category';
 })
 export class FormComponent implements OnInit {
   @Input() categories?: ParentCategory[];
+  @ViewChild('divClick') divClick?: ElementRef;
 
   constructor() {}
 
@@ -15,5 +17,6 @@ export class FormComponent implements OnInit {
 
   selectCategory(childCategory:ChildCategory): void {
     console.log(childCategory);
+    this.divClick?.nativeElement.click();
   }
 }
