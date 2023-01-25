@@ -9,6 +9,7 @@ import { ContentComponent } from './components/content/content.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
+import { FormProductCategoryComponent } from './components/form-product-category/form-product-category.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormComponent } from './components/form/form.component';
     HeaderComponent,
     ContentComponent,
     FooterComponent,
-    FormComponent
+    FormComponent,
+    FormProductCategoryComponent
   ],
   imports: [
     BrowserModule,
