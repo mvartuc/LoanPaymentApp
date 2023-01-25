@@ -1,43 +1,66 @@
-<div class="app-form-div">
-  <div *ngIf="categories?.length != 0">
-    <div #divClick class="dropdown m-5">
-      <a
-        class="btn btn-secondary dropdown-toggle"
-        href="#"
-        role="button"
-        id="dropdownMenuLink"
-        data-bs-toggle="dropdown"
-        data-bs-auto-close="outside"
-        aria-expanded="false"
-      >
-        ÜRÜN
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li *ngFor="let category of categories" class="dropdown dropend">
-          <a
-            class="dropdown-item"
-            href="#"
-            id="dropDown-{{ category.code }}"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            &gt;{{ category.displayName }}
-          </a>
-          <ul
-            class="dropdown-menu"
-            attr.aria-labelledby="dropDown-{{ category.code }}"
-          >
-            <li *ngFor="let childCategory of category.childCategories">
-              <a
-                (click)="selectCategory(childCategory)"
-                href="#"
-                class="dropdown-item dropdown-child-item"
-                >{{ childCategory.displayName }}</a
-              >
-            </li>
-          </ul>
-        </li>
-      </ul>
+<form [formGroup]="form">
+  <div *ngIf="step === 1">
+    <h3>Step 1: Personal Information</h3>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        formControlName="name"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+      />
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="text"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+      />
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Email is required</div>
+        <div *ngIf="f.email.errors.email">
+          Email must be a valid email address
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="next()">Next</button>
     </div>
   </div>
-</div>
+  <div *ngIf="step === 2">
+    <h3>Step 2: Address Information</h3>
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input
+        type="text"
+        formControlName="address"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+      />
+      <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+        <div *ngIf="f.address.errors.required">Address is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input
+        type="text"
+        formControlName="city"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+      />
+      <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+        <div *ngIf="f.city.errors.required">City is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="prev()">Back</button>
+      <button class="btn btn-primary" (click)="next()">Next</button>
+    </div>
+  </div>
+</form>
