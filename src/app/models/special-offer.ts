@@ -6,5 +6,5 @@ export class SpecialOffer {
   name: string = "";
   description: string = "";
   productCategoryId!: number;
-  category: Category;
+  category: Category = new Category();
 }
