@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
 import { FormProductCategoryComponent } from './components/form-product-category/form-product-category.component';
+import { FormUsageTypeComponent } from './components/form-usage-type/form-usage-type.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormProductCategoryComponent } from './components/form-product-category
     FooterComponent,
     FormComponent,
     FormProductCategoryComponent,
+    FormUsageTypeComponent,
   ],
   imports: [
     BrowserModule,
