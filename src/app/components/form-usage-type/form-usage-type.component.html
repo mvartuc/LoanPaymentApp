@@ -1,1 +1,4 @@
-<p>form-usage-type works!</p>
+<select class="form-select" [(ngModel)]="selectedUsageType" aria-label="Default select example">
+    <option selected>SECINIZ</option>
+    <option *ngFor="let usageType in this.usageTypes">{{ usageType.name }}</option>
+  </select>
