@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   Validator,
 } from '@angular/forms';
-import { ChildCategory, ParentCategory } from 'src/app/models/category';
+import { Category, ParentCategory } from 'src/app/models/category';
 
 @Component({
   selector: 'app-form-product-category',
@@ -35,7 +35,7 @@ export class FormProductCategoryComponent
   @Input()
   legend!: string;
 
-  selectedCategory?: ChildCategory;
+  selectedCategory?: Category;
   selectionMessage:String = "SECINIZ";
 
   @ViewChild('divClick') divClick?: ElementRef;
@@ -44,7 +44,7 @@ export class FormProductCategoryComponent
 
   ngOnInit(): void {}
 
-  onCategoryChange = (childCategory: ChildCategory) => {};
+  onCategoryChange = (category: Category) => {};
 
   onTouched = () => {};
 
@@ -58,18 +58,18 @@ export class FormProductCategoryComponent
 
   }
 
-  selectCategory(childCategory: ChildCategory): void {
+  selectCategory(category: Category): void {
     this.markAsTouched();
     if (!this.disabled) {
-      this.selectedCategory = childCategory;
+      this.selectedCategory = category;
       this.onCategoryChange(this.selectedCategory);
     }
-    this.selectionMessage = childCategory.displayName;
+    this.selectionMessage = category.name;
     this.divClick?.nativeElement.click();
   }
 
-  writeValue(childCategory: ChildCategory): void {
-    this.selectedCategory = childCategory;
+  writeValue(category: Category): void {
+    this.selectedCategory = category;
   }
 
   registerOnChange(onChange: any) {
@@ -92,11 +92,11 @@ export class FormProductCategoryComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const providedChildCategory = control.value;
-    if (!this.categories.includes(providedChildCategory)) {
+    const providedCategory = control.value;
+    if (!this.categories.includes(providedCategory)) {
       return {
         mustBeValid: {
-          providedChildCategory
+          providedCategory
         }
       };
     }

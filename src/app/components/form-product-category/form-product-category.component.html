@@ -12,26 +12,26 @@
     {{ selectionMessage }}
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li *ngFor="let category of categories" class="dropdown dropend">
+    <li *ngFor="let parentCategory of categories" class="dropdown dropend">
       <a
         class="dropdown-item"
         href="#"
-        id="dropDown-{{ category.code }}"
+        id="dropDown-{{ parentCategory.code }}"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        &gt;{{ category.name }}
+        &gt;{{ parentCategory.name }}
       </a>
       <ul
         class="dropdown-menu"
-        attr.aria-labelledby="dropDown-{{ category.code }}"
+        attr.aria-labelledby="dropDown-{{ parentCategory.code }}"
       >
-        <li *ngFor="let childCategory of category.childCategories">
+        <li *ngFor="let category of parentCategory.childCategories">
           <a
-            (click)="selectCategory(childCategory)"
+            (click)="selectCategory(category)"
             href="#"
             class="dropdown-item dropdown-child-item"
-            >{{ childCategory.name }}</a
+            >{{ category.name }}</a
           >
         </li>
       </ul>
