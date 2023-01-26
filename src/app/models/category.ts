@@ -1,14 +1,14 @@
 export class Category {
-  id?: number;
-  code: number = 0;
+  id!: number;
+  code!: number;
   name: String = '';
   description: String = '';
   parentCategoryID!: number;
 }
 
 export class ParentCategory {
-  id?: number;
-  code: number = 0;
+  id!: number;
+  code!: number;
   name: String = '';
   description: String = '';
   childCategories: Category[] = [];
