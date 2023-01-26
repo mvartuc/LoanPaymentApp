@@ -1,6 +1,6 @@
 export class Category {
   id!: number;
-  code!: number;
+  code!: string;
   name: String = '';
   description: String = '';
   parentCategoryID!: number;
@@ -8,7 +8,7 @@ export class Category {
 
 export class ParentCategory {
   id!: number;
-  code!: number;
+  code!: string;
   name: String = '';
   description: String = '';
   childCategories: Category[] = [];
