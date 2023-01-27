@@ -8,7 +8,6 @@
           [legend]="'Ürün Kategorisi:'"
           [categories]="categories"
           formControlName="category"
-          class="form-control"
           [ngClass]="{
             'is-invalid': submitted && form.get('formStep1.category')?.errors
           }"
@@ -20,7 +19,13 @@
           Kategori Zorunludur
         </div>
       </div>
-      <div class="col-6"></div>
+      <div class="col-6">
+        <app-form-usage-type
+          [legend]="'Kullandırım Tipi'"
+          [usageTypes]="this.getParams('KullandirimTipi')"
+        >
+        </app-form-usage-type>
+      </div>
     </div>
   </div>
   <div *ngIf="step === 2">
