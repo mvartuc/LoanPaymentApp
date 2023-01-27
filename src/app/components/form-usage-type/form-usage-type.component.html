@@ -1,4 +1,12 @@
-<select class="form-select" [(ngModel)]="selectedUsageType" aria-label="Default select example">
-    <option selected>SECINIZ</option>
-    <option *ngFor="let usageType in this.usageTypes">{{ usageType.name }}</option>
-  </select>
+<label for="usage-type">{{ legend }}</label>
+<select
+  id="usage-type"
+  class="form-select"
+  [(ngModel)]="selectedUsageType"
+  aria-label="Default select example"
+>
+  <option hidden>SECINIZ</option>
+  <option *ngFor="let usageType of usageTypes">
+    {{ usageType.name }}
+  </option>
+</select>
