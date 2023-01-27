@@ -1,1 +1,12 @@
-<p>form-special-offer works!</p>
+<label for="usage-type">{{ legend }}</label>
+<select
+  id="usage-type"
+  class="form-select"
+  [(ngModel)]="selectedOffer"
+  aria-label="Default select example"
+>
+  <option hidden>SECINIZ</option>
+  <option *ngFor="let offer of (specialOffers$|async)">
+    {{ offer.name }}
+  </option>
+</select>
