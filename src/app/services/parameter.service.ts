@@ -18,6 +18,6 @@ export class ParameterService {
   }
 
   public getAllParametersByGroupCode(groupCode: string, params: Parameter[]): Parameter[] {
-    return params.filter((p) => p.groupCode === groupCode);
+    return params.filter((p) => p.groupCode === groupCode && p.description);
   }
 }
