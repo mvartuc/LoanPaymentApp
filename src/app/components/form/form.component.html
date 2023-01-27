@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <h3>Kullandırım Giriş Bilgileri</h3>
   <div *ngIf="step === 1" formGroupName="formStep1">
-    <div class="row g-3">
+    <div class="row g-3 text-center">
       <div class="col-4">
         <app-form-product-category
           *ngIf="categories?.length != 0"
@@ -19,7 +19,7 @@
           Kategori Zorunludur
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <app-form-usage-type
           [legend]="'Kullandırım Tipi'"
           [usageTypes]="this.getParams('KullandirimTipi')"
