@@ -34,9 +34,11 @@ export class FormSpecialOfferComponent implements OnInit, OnChanges {
   }
 
   refreshOffers() {
-    this.specialOffers$ = this.specialOfferService.getSpecialOffers(
-      this.category.code
-    );
+    if (this.category) {
+      this.specialOffers$ = this.specialOfferService.getSpecialOffers(
+        this.category.code
+      );
+    }
   }
 
   // getOffers(): SpecialOffer[] {
