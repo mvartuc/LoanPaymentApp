@@ -26,6 +26,13 @@
         >
         </app-form-usage-type>
       </div>
+      <div class="col-4">
+        <app-form-special-offer
+        [legend]="'Kampanya'"
+        [category]="form.get('formStep1.category')?.value"
+        >
+        </app-form-special-offer>
+      </div>
     </div>
   </div>
   <div *ngIf="step === 2">
