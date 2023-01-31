@@ -3,10 +3,13 @@
   id="usage-type"
   class="form-select"
   [(ngModel)]="selectedOffer"
+  (ngModelChange)="selectedOfferChange.emit(selectedOffer)"
+  name="specialOffer"
   aria-label="Default select example"
+  [attr.disabled]="disabled ? true : null"
 >
   <option hidden>SECINIZ</option>
-  <option *ngFor="let offer of (specialOffers$|async)">
+  <option *ngFor="let offer of specialOffers$ | async" [ngValue]="offer">
     {{ offer.name }}
   </option>
 </select>

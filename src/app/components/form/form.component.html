@@ -1,19 +1,20 @@
-<form [formGroup]="form">
+<form #f="ngForm" (ngSubmit)="onSubmit()">
   <h3>Kullandırım Giriş Bilgileri</h3>
-  <div *ngIf="step === 1" formGroupName="formStep1">
+  <div *ngIf="this.step === 1" ngModelGroup="step1" #step1="ngModelGroup">
     <div class="row g-3 text-center">
       <div class="col-4">
         <app-form-product-category
           *ngIf="categories?.length != 0"
           [legend]="'Ürün Kategorisi:'"
           [categories]="categories"
-          formControlName="category"
+          [(ngModel)]="product.category"
+          name="category"
           [ngClass]="{
-            'is-invalid': submitted && form.get('formStep1.category')?.errors
+            'is-invalid': stepSubmitted[step]
           }"
         ></app-form-product-category>
         <div
-          *ngIf="submitted && form.get('formStep1.category')?.errors"
+          *ngIf="stepSubmitted[step] && !product.category"
           class="invalid-feedback"
         >
           Kategori Zorunludur
@@ -21,27 +22,47 @@
       </div>
       <div class="col-4">
         <app-form-usage-type
+          [parentGroup]="step1"
           [legend]="'Kullandırım Tipi'"
           [usageTypes]="this.getParams('KullandirimTipi')"
+          [(usageTypeCode)]="product.usageTypeCode"
         >
         </app-form-usage-type>
       </div>
       <div class="col-4">
         <app-form-special-offer
-        [legend]="'Kampanya'"
-        [category]="form.get('formStep1.category')?.value"
+          [legend]="'Kampanya'"
+          [category]="product.category"
+          [disabled]="isDisabled('offer')"
+          [(selectedOffer)]="product.specialOffer"
         >
         </app-form-special-offer>
       </div>
     </div>
   </div>
-  <div *ngIf="step === 2">
+  <div *ngIf="this.step === 2" ngModelGroup="step2" #step2="ngModelGroup">
     <div class="row g-3">
       <div class="col auto">
         <h1 class="d1">Welcome To The Next Step!</h1>
       </div>
     </div>
   </div>
+  <div class="row gx-3 my-3 justify-content-between">
+    <div class="col-3 text-start">
+      <button
+        *ngIf="this.step != 1"
+        class="btn btn-primary"
+        type="button"
+        (click)="prev()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-3 text-end">
+      <button class="btn btn-dark" type="submit">Next</button>
+    </div>
+  </div>
+
   <!-- <div class="form-group">
       <label for="email">Email:</label>
       <input
@@ -87,9 +108,6 @@
         <div *ngIf="f.city.errors.required">City is required</div>
       </div>
     </div>
-    <div class="form-group">
-      <button class="btn btn-primary" (click)="prev()">Back</button>
-      <button class="btn btn-primary" (click)="next()">Next</button>
-    </div>
+
   -->
 </form>

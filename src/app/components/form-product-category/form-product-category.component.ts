@@ -93,7 +93,7 @@ export class FormProductCategoryComponent
 
   validate(control: AbstractControl): ValidationErrors | null {
     const providedCategory = control.value;
-    if (!this.categories.includes(providedCategory)) {
+    if (!providedCategory) {
       return {
         mustBeValid: {
           providedCategory

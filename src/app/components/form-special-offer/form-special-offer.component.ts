@@ -1,10 +1,13 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
+import { ControlContainer, NgModelGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { SpecialOffer } from 'src/app/models/special-offer';
@@ -14,12 +17,15 @@ import { SpecialOfferService } from 'src/app/services/special-offer.service';
   selector: 'app-form-special-offer',
   templateUrl: './form-special-offer.component.html',
   styleUrls: ['./form-special-offer.component.scss'],
+  viewProviders: [ { provide: ControlContainer, useExisting: NgModelGroup } ]
 })
 export class FormSpecialOfferComponent implements OnInit, OnChanges {
   public specialOffers$!: Observable<SpecialOffer[]>;
-  @Input() public category!: Category;
+  @Input() public category?: Category;
   @Input() public legend!: string;
-  selectedOffer?: SpecialOffer;
+  @Input() public disabled!: boolean;
+  @Output() selectedOfferChange = new EventEmitter<SpecialOffer>();
+  @Input() selectedOffer?: SpecialOffer;
 
   constructor(private specialOfferService: SpecialOfferService) {}
 
