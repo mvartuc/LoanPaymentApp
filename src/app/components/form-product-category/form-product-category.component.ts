@@ -31,18 +31,23 @@ export class FormProductCategoryComponent
 {
   @Input()
   categories!: ParentCategory[];
+  @Input() public isInvalid!: boolean;
 
   @Input()
   legend!: string;
 
   selectedCategory?: Category;
-  selectionMessage:String = "SECINIZ";
+  selectionMessage:String = "";
 
   @ViewChild('divClick') divClick?: ElementRef;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+  }
 
   onCategoryChange = (category: Category) => {};
 

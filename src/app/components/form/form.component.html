@@ -9,25 +9,18 @@
           [categories]="categories"
           [(ngModel)]="product.category"
           name="category"
-          [ngClass]="{
-            'is-invalid': stepSubmitted[step]
-          }"
+          [isInvalid]="stepSubmitted[step] && !product.category"
         ></app-form-product-category>
-        <div
-          *ngIf="stepSubmitted[step] && !product.category"
-          class="invalid-feedback"
-        >
-          Kategori Zorunludur
-        </div>
       </div>
       <div class="col-4">
         <app-form-usage-type
-          [parentGroup]="step1"
           [legend]="'Kullandırım Tipi'"
           [usageTypes]="this.getParams('KullandirimTipi')"
           [(usageTypeCode)]="product.usageTypeCode"
+          [isInvalid]="stepSubmitted[step] && !product.usageTypeCode"
         >
         </app-form-usage-type>
+
       </div>
       <div class="col-4">
         <app-form-special-offer

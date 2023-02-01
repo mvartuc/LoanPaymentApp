@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormControl, NgForm, NgModel, NgModelGroup } from '@angular/forms';
+import { NgModelGroup } from '@angular/forms';
 import { Parameter } from 'src/app/models/parameter';
-import { SkipSelf } from '@angular/core';
 import { ControlContainer} from '@angular/forms';
 
 @Component({
@@ -13,21 +12,18 @@ import { ControlContainer} from '@angular/forms';
 
 export class FormUsageTypeComponent implements OnInit {
   @Input()
-  legend!: string;
+  legend: string ="";
   @Input()
-  usageTypeCode?: string;
-  @Input()
-  parentGroup?: NgModelGroup;
+  usageTypeCode: string ="";
   @Output()
   usageTypeCodeChange = new EventEmitter<string>();
+  @Input() public isInvalid: boolean = false;
   // @ViewChild('usageTypeSelect') usageTypeSelect!: FormControl;
 
 
   @Input()
-  usageTypes!: Parameter[];
-  
-  selectedUsageType: Parameter = new Parameter();
-  
+  usageTypes: Parameter[] = [];
+    
   constructor() { }
 
   ngOnInit(): void {

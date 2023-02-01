@@ -1,15 +1,28 @@
-<label for="usage-type">{{ legend }}</label>
+<label for="special-offer">{{ legend }}</label>
 <select
-  id="usage-type"
+  id="special-offer"
   class="form-select"
   [(ngModel)]="selectedOffer"
-  (ngModelChange)="selectedOfferChange.emit(selectedOffer)"
+  (ngModelChange)="refreshModel()"
   name="specialOffer"
-  aria-label="Default select example"
   [attr.disabled]="disabled ? true : null"
+  [ngClass]="{
+    'is-invalid': isInvalid
+  }"
+  #specialOfferNgModel
 >
-  <option hidden>SECINIZ</option>
-  <option *ngFor="let offer of specialOffers$ | async" [ngValue]="offer">
+  <option *ngIf="!selectedOffer" [ngValue]="null" hidden disabled selected>
+    SECINIZ
+  </option>
+  <option
+    *ngFor="let offer of specialOffers$ | async"
+    [ngValue]="offer"
+    [attr.selected]="
+      selectedOffer && selectedOffer.code == offer.code ? 'true' : null
+    "
+  >
     {{ offer.name }}
   </option>
 </select>
+
+<div *ngIf="isInvalid" class="invalid-feedback">Kampanya Gecerli Degil</div>

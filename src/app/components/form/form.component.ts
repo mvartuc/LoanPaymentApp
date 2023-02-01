@@ -94,8 +94,8 @@ export class FormComponent implements OnInit {
   //   }
   // }
   prev(): void {
-    console.log(this.step);
+    
     this.step--;
-    console.log(this.step);
+
   }
 }

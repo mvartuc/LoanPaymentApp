@@ -1,5 +1,8 @@
 <label>{{ legend }}</label>
-<div #divClick class="dropdown">
+<div #divClick class="dropdown"
+[ngClass]="{
+  'is-invalid': isInvalid
+}">
   <button
     class="btn btn-secondary dropdown-toggle  w-100"
     href="#"
@@ -9,7 +12,7 @@
     data-bs-auto-close="outside"
     aria-expanded="false"
   >
-    {{ selectionMessage }}
+    {{ this.selectedCategory ? this.selectedCategory.name : 'SECINIZ' }}
   </button>
   <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
     <li *ngFor="let parentCategory of categories" class="dropdown dropend">
@@ -38,3 +41,8 @@
     </li>
   </ul>
 </div>
+
+<div
+*ngIf="isInvalid"
+class="invalid-feedback"
+>Kategori Zorunludur</div>
