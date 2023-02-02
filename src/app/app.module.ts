@@ -12,6 +12,7 @@ import { FormComponent } from './components/form/form.component';
 import { FormProductCategoryComponent } from './components/form-product-category/form-product-category.component';
 import { FormUsageTypeComponent } from './components/form-usage-type/form-usage-type.component';
 import { FormSpecialOfferComponent } from './components/form-special-offer/form-special-offer.component';
+import { FormPaymentPlanComponent } from './components/form-payment-plan/form-payment-plan.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormSpecialOfferComponent } from './components/form-special-offer/form-
     FormProductCategoryComponent,
     FormUsageTypeComponent,
     FormSpecialOfferComponent,
+    FormPaymentPlanComponent,
   ],
   imports: [
     BrowserModule,
