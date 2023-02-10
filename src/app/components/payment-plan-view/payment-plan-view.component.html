@@ -1,0 +1,37 @@
+<div class="payment-plan-view">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Taksit Tarihi</th>
+        <th scope="col">Taksit Tutarı</th>
+        <th scope="col">Ana Para</th>
+        <th scope="col">Faiz Tutarı</th>
+        <th scope="col">Bsmv Tutarı (%{{ (planObservable$|async)?.bsmvPercentageDisplayValue }})</th>
+        <th scope="col">Kalan Anapara</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let installment of (planObservable$ | async)?.installments">
+        <th scope="row">{{ installment.order }}</th>
+        <td>{{ installment.endDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{ installment.amountToBePaid | number: '1.2-2' }}</td>
+        <td>{{ installment.initialDebtAmount | number: '1.2-2' }}</td>
+        <td>{{ installment.interestAmount | number: '1.2-2' }}</td>
+        <td>{{ installment.bsmvAmount | number: '1.2-2' }}</td>
+        <td>{{ installment.remainingInitialDebtAmount | number: '1.2-2' }}</td>
+      </tr>
+    </tbody>
+    <tfoot class="table-group-divider">
+        <tr>
+            <th scope="row">Toplam</th>
+            <td>{{(planObservable$ | async)?.lastPaymentDate | date: 'dd/MM/yyyy'}}</td>
+            <td>{{ (planObservable$ | async)?.totalAmountToBePaid | number: '1.2-2' }}</td>
+            <td>{{ getTotalInitialDebt((planObservable$ | async))| number: '1.2-2' }}</td>
+            <td>{{(planObservable$ | async)?.totalInterestAmount | number: '1.2-2' }}</td>
+            <td>{{(planObservable$ | async)?.totalBsmvAmount | number: '1.2-2' }}</td>
+            <td>{{(planObservable$ | async)?.crumbAmount | number: '1.2-2' }}</td>
+          </tr>
+    </tfoot>
+  </table>
+</div>

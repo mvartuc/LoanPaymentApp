@@ -13,6 +13,10 @@ import { FormProductCategoryComponent } from './components/form-product-category
 import { FormUsageTypeComponent } from './components/form-usage-type/form-usage-type.component';
 import { FormSpecialOfferComponent } from './components/form-special-offer/form-special-offer.component';
 import { FormPaymentPlanComponent } from './components/form-payment-plan/form-payment-plan.component';
+import { FormRepaymentTermComponent } from './components/form-repayment-term/form-repayment-term.component';
+import { FormDatepartComponent } from './components/form-datepart/form-datepart.component';
+import { PaymentPlanViewComponent } from './components/payment-plan-view/payment-plan-view.component';
+import { ProductViewComponent } from './components/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,10 @@ import { FormPaymentPlanComponent } from './components/form-payment-plan/form-pa
     FormUsageTypeComponent,
     FormSpecialOfferComponent,
     FormPaymentPlanComponent,
+    FormRepaymentTermComponent,
+    FormDatepartComponent,
+    PaymentPlanViewComponent,
+    ProductViewComponent,
   ],
   imports: [
     BrowserModule,

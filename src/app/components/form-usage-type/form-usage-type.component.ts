@@ -2,6 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { NgModelGroup } from '@angular/forms';
 import { Parameter } from 'src/app/models/parameter';
 import { ControlContainer} from '@angular/forms';
+import { Observable } from 'rxjs';
+import { ParameterService } from 'src/app/services/parameter.service';
 
 @Component({
   selector: 'app-form-usage-type',
@@ -21,10 +23,11 @@ export class FormUsageTypeComponent implements OnInit {
   // @ViewChild('usageTypeSelect') usageTypeSelect!: FormControl;
 
 
-  @Input()
-  usageTypes: Parameter[] = [];
+  usageTypes$: Observable<Parameter[]> = new Observable<Parameter[]>();
     
-  constructor() { }
+  constructor(private parameterService:ParameterService) { 
+    this.usageTypes$ = this.parameterService.getAllParametersByGroupCode("KullandirimTipi")
+  }
 
   ngOnInit(): void {
   }

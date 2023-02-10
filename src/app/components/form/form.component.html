@@ -1,106 +1,111 @@
-<form #f="ngForm" (ngSubmit)="onSubmit()">
-  <h3>Kullandırım Giriş Bilgileri</h3>
-  <div *ngIf="this.step === 1" ngModelGroup="step1" #step1="ngModelGroup">
-    <div class="row g-3 text-center">
-      <div class="col-4">
-        <app-form-product-category
-          *ngIf="categories?.length != 0"
-          [legend]="'Ürün Kategorisi:'"
-          [categories]="categories"
-          [(ngModel)]="product.category"
-          name="category"
-          [isInvalid]="stepSubmitted[step] && !product.category"
-        ></app-form-product-category>
+<ng-container *ngIf="this.step === 3; else form">
+  <ng-container *ngIf="savedProduct$ | async as savedProduct; else waitDiv">
+    <h3 class="d-print-none">Ürün Kaydedildi!</h3>
+    <div class="row row-cols-1 gy-4">
+      <div class="col text-end">
+        <button type="button" class="btn btn-light utility-buttons d-print-none" (click)="print()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-printer"
+            viewBox="0 0 16 16"
+          >
+            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+            <path
+              d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"
+            />
+          </svg>
+          Yazdır
+        </button>
       </div>
-      <div class="col-4">
-        <app-form-usage-type
-          [legend]="'Kullandırım Tipi'"
-          [usageTypes]="this.getParams('KullandirimTipi')"
-          [(usageTypeCode)]="product.usageTypeCode"
-          [isInvalid]="stepSubmitted[step] && !product.usageTypeCode"
-        >
-        </app-form-usage-type>
+      <div class="col">
+        <app-product-view #productView [product]="savedProduct"></app-product-view>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #waitDiv>
+    <h3>Kaydediliyor...</h3>
+  </ng-template>
+</ng-container>
 
-      </div>
-      <div class="col-4">
-        <app-form-special-offer
-          [legend]="'Kampanya'"
-          [category]="product.category"
-          [disabled]="isDisabled('offer')"
-          [(selectedOffer)]="product.specialOffer"
-        >
-        </app-form-special-offer>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="this.step === 2" ngModelGroup="step2" #step2="ngModelGroup">
-    <div class="row g-3">
-      <div class="col auto">
-        <h1 class="d1">Welcome To The Next Step!</h1>
-      </div>
-    </div>
-  </div>
-  <div class="row gx-3 my-3 justify-content-between">
-    <div class="col-3 text-start">
-      <button
-        *ngIf="this.step != 1"
-        class="btn btn-primary"
-        type="button"
-        (click)="prev()"
+<ng-template #form>
+  <form #f="ngForm" (ngSubmit)="onSubmit()">
+    <h3 class="text-center display-4 mb-3">Kredi Kullandırım Formu</h3>
+    <div
+      *ngIf="this.step === 1"
+      ngModelGroup="step1"
+      #step1="ngModelGroup"
+      class="align-items-center"
+    >
+      <h3>Kullandırım Giriş Bilgileri</h3>
+      <div
+        class="row g-3 text-center row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center"
       >
-        Back
-      </button>
-    </div>
-    <div class="col-3 text-end">
-      <button class="btn btn-dark" type="submit">Next</button>
-    </div>
-  </div>
-
-  <!-- <div class="form-group">
-      <label for="email">Email:</label>
-      <input
-        type="text"
-        formControlName="email"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-      />
-      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Email is required</div>
-        <div *ngIf="f.email.errors.email">
-          Email must be a valid email address
+        <div class="col">
+          <app-form-product-category
+            *ngIf="categories?.length != 0"
+            [legend]="'Ürün Kategorisi:'"
+            [categories]="categories"
+            [(ngModel)]="product.category"
+            name="category"
+            [isInvalid]="stepSubmitted[step] && !product.category"
+          ></app-form-product-category>
+        </div>
+        <div class="col">
+          <app-form-usage-type
+            [legend]="'Kullandırım Tipi'"
+            [(usageTypeCode)]="product.usageTypeCode"
+            [isInvalid]="stepSubmitted[step] && !product.usageTypeCode"
+          >
+          </app-form-usage-type>
+        </div>
+        <div class="col">
+          <app-form-special-offer
+            [legend]="'Kampanya'"
+            [category]="product.category"
+            [disabled]="isDisabled('offer')"
+            [(selectedOffer)]="product.specialOffer"
+          >
+          </app-form-special-offer>
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <button class="btn btn-primary" (click)="next()">Next</button>
-    </div>
-  </div>
-  <div *ngIf="step === 2">
-    <h3>Step 2: Address Information</h3>
-    <div class="form-group">
-      <label for="address">Address:</label>
-      <input
-        type="text"
-        formControlName="address"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
-      />
-      <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-        <div *ngIf="f.address.errors.required">Address is required</div>
+    <div *ngIf="this.step === 2" ngModelGroup="step2" #step2="ngModelGroup">
+      <div class="row g-3 justify-content-center row-cols-1 row-cols-md-2">
+        <app-form-payment-plan
+          *ngIf="product.category.parentCategoryID === 2; else adatli"
+          [header]="'Ödeme Planı'"
+          [(paymentPlan)]="product.paymentPlan"
+          [planValid]="step2.valid"
+          [usageType]="product.usageTypeCode"
+        >
+        </app-form-payment-plan>
+        <ng-template #adatli>
+          <h4>Adatli Kredilerde Odeme Plani Batch Olarak Cikartilmaktadir!</h4>
+        </ng-template>
       </div>
     </div>
-    <div class="form-group">
-      <label for="city">City:</label>
-      <input
-        type="text"
-        formControlName="city"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
-      />
-      <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
-        <div *ngIf="f.city.errors.required">City is required</div>
+    <div class="row gx-3 my-3 justify-content-between">
+      <div class="col-3 text-start">
+        <button
+          *ngIf="this.step != 1"
+          class="btn btn-primary"
+          type="button"
+          (click)="prev()"
+        >
+          Geri
+        </button>
+      </div>
+      <div class="col-3 text-end">
+        <ng-container *ngIf="this.step === 2; else continueForm">
+          <button class="btn btn-dark" type="submit">Ürünü Kaydet</button>
+        </ng-container>
+        <ng-template #continueForm>
+          <button class="btn btn-dark" type="submit">İleri</button>
+        </ng-template>
       </div>
     </div>
-
-  -->
-</form>
+  </form>
+</ng-template>

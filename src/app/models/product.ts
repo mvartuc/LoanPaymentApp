@@ -9,5 +9,5 @@ export class Product {
     specialOffer: SpecialOffer | null = null;
     usageTypeCode: string = "";
     paymentPlanID!: number;
-    paymentPlan: PaymentPlan | null = null;
+    paymentPlan: PaymentPlan | null = new PaymentPlan();
 }

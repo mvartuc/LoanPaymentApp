@@ -1,0 +1,58 @@
+<div class="col">
+  <h4>{{ header }}</h4>
+  <div class="row row-cols-1 row-cols-md-2">
+    <div class="col">
+      <div class="form-field">
+        <label for="vadeTuru">Vade Türü</label>
+        <select
+          id="vadeTuru"
+          class="form-select"
+          name="vadeTuru"
+          aria-label="DatePart Type"
+          #repaymentDateType="ngModel"
+          [(ngModel)]="selectedDatePart"
+          required
+          (ngModelChange)="repaymentTermTypeChanged()"
+          [ngClass]="{ 'is-invalid': isInvalid(repaymentDateType) }"
+        >
+          <option selected hidden *ngIf="!selectedDatePart" [ngValue]="null">SECINIZ</option>
+          <option
+            [attr.selected]="
+              selectedDatePart && selectedDatePart == repaymentTerm?.month
+                ? true
+                : null
+            "
+            [ngValue]="repaymentTerm?.month"
+          >
+            {{ repaymentTerm?.month?.name }}
+          </option>
+          <option
+            [attr.selected]="
+              selectedDatePart && selectedDatePart == repaymentTerm?.year
+                ? true
+                : null
+            "
+            [ngValue]="repaymentTerm?.year"
+          >
+            {{ repaymentTerm?.year?.name }}
+          </option>
+        </select>
+        <div *ngIf="isInvalid(repaymentDateType)" class="invalid-feedback">
+            Vade Turu Zorunludur!
+        </div>
+      </div>
+    </div>
+    <div class="col" *ngIf="selectedDatePart == repaymentTerm?.year">
+      <app-form-datepart
+        [(datePart)]="repaymentTerm!.year"
+        (datePartChange)="refreshModel()"
+      ></app-form-datepart>
+    </div>
+    <div class="col" *ngIf="selectedDatePart == repaymentTerm?.month">
+      <app-form-datepart
+        [(datePart)]="repaymentTerm!.month"
+        (datePartChange)="refreshModel()"
+      ></app-form-datepart>
+    </div>
+  </div>
+</div>

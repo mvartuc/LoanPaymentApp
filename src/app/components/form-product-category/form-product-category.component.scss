@@ -1,0 +1,7 @@
+@use "/src/styles/base/variables";
+
+.category-button {
+    background-color: variables.$brand-color;
+    border-color: variables.$brand-color;
+    color: black;
+}

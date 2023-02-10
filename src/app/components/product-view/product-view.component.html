@@ -1,0 +1,74 @@
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="text-center" colspan="2" scope="row column">Ürün Detayları</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td>{{ product.id }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kod</th>
+        <td>{{ product.code }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kategori</th>
+        <td>{{ product.category.name + " - " + product.category.code }}</td>
+      </tr>
+      <tr *ngIf="product.specialOffer">
+        <th scope="row">Kampanya</th>
+        <td>{{ product.specialOffer.name + " - " + product.specialOffer.code }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kullandırım Türü</th>
+        <td>{{ product.usageTypeCode }}</td>
+      </tr>
+
+      <tr>
+        <th class="text-center" colspan="2" scope="row column">Ödeme Detayları</th>
+      </tr>
+
+      <tr>
+        <th scope="row">Alınan Borç Tutarı</th>
+        <td>{{ product.paymentPlan!.totalInitialDebtAmount | number }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Faiz Oranı</th>
+        <td>%{{ product.paymentPlan!.interestPercentage * 100 | number }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Bsmv Oranı</th>
+        <td>%{{ product.paymentPlan!.bsmvPercentageDisplayValue | number }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kredi Başlangıç-Bitiş Tarihleri</th>
+        <td>{{ product.paymentPlan!.firstPaymentDate | date: 'dd/MM/yyyy' }} - {{ product.paymentPlan!.lastPaymentDate | date: 'dd/MM/yyyy' }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Vade</th>
+        <td>{{product.paymentPlan!.repaymentTerm!.year!.value * 12 + product.paymentPlan!.repaymentTerm!.month!.value }} AY</td>
+      </tr>
+      <tr>
+        <th scope="row">Ödeme Periyodu</th>
+        <td>{{ product!.paymentPlan!.period?.value }} AY</td>
+      </tr>
+      <tr>
+        <th scope="row">Toplam Ödenecek Faiz Tutarı</th>
+        <td>{{ product.paymentPlan!.totalInterestAmount| number }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Toplam Ödenecek Bsmv Tutarı</th>
+        <td>{{ product.paymentPlan!.totalBsmvAmount | number }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Toplam Ödenecek Tutar</th>
+        <td>{{ product.paymentPlan!.totalAmountToBePaid | number }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-payment-plan-view
+  [planObservable$]="getObservablePlan()"
+  ></app-payment-plan-view>

@@ -1,0 +1,26 @@
+<div class="form-field">
+    <label for="datePart.name">{{datePart?.name}}</label>
+    <input
+      type="number"
+      class="form-control"
+      [name]="randomizedName"
+      #model="ngModel"
+      [attr.placeholder]="datePart!.name"
+      step="1"
+      required
+      min="1"
+      [max] = "datePart!.limit"
+      [(ngModel)]="datePart!.value"
+      (ngModelChange)="refreshModel()"
+      [ngClass]="{ 'is-invalid': isInvalid(model) }"
+    />
+
+    <div *ngIf="isInvalid(model)" class="invalid-feedback">
+      <div *ngIf="model.errors?.['required']">
+        {{datePart?.name}} Zorunludur!
+      </div>
+      <div *ngIf="model.errors?.['min'] || model.errors?.['max']">
+        {{datePart?.name}}, 1-{{ datePart?.limit }} arasinda olmalidir.
+      </div>
+    </div>
+  </div>

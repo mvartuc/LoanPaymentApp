@@ -4,5 +4,10 @@ export class DatePart {
     name: string = '';
     value: number = 0;
     limit: number = 0;
+
+    constructor(name:string, limit:number) {
+      this.name = name;
+      this.limit = limit;
+    }
   }
   

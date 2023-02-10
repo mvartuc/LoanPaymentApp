@@ -12,6 +12,9 @@ import {
 import { Parameter } from 'src/app/models/parameter';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { Product } from 'src/app/models/product';
+import { ProductService } from 'src/app/services/product.service';
+import { Observable } from 'rxjs';
+import { ProductViewComponent } from '../product-view/product-view.component';
 
 @Component({
   selector: 'app-form',
@@ -22,41 +25,44 @@ export class FormComponent implements OnInit {
   @ViewChild('f', { static: false }) form!: NgForm;
   @ViewChild('step1', { static: false }) step1!: NgModelGroup;
   @ViewChild('step2', { static: false }) step2!: NgModelGroup;
-  // @ViewChild('step3', { static: false }) step3?: NgModelGroup;
-  // @ViewChild('step4', { static: false }) step4?: NgModelGroup;
-  public product: Product = new Product();
   public stepSubmitted: { [key: number]: boolean } = {};
-  public stepToModelGroup: { [key: number]: NgModelGroup } = {}
+  public stepToModelGroup: { [key: number]: NgModelGroup } = {};
   public step: number = 1;
 
   @Input() categories!: ParentCategory[];
+  @Input() product!: Product;
+
   @ViewChild('divClick') divClick?: ElementRef;
   public submitted: Boolean = false;
   @Input() params!: Parameter[];
 
-  constructor(private parameterService: ParameterService) {}
+  public savedProduct$:Observable<Product> = new Observable<Product>();
 
-  ngOnInit(): void {
+  constructor(private parameterService: ParameterService, private productService:ProductService) {}
 
-  }
+  ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.stepToModelGroup = {
       1: this.step1,
       2: this.step2,
       // 3: this.step3,
       // 4: this.step4
-    }
+    };
   }
 
   onSubmit(): void {
-    console.log('submitting')
+    console.log('submitting');
     this.stepSubmitted[this.step] = true;
     let currentFormStep = this.getFormStep();
     if (currentFormStep.valid) {
       console.log(this.product);
       this.step++;
+      if (this.step === 3) {
+        this.savedProduct$ = this.productService.saveProduct(this.product);
+      }
     } else {
+      currentFormStep.control.markAllAsTouched();
       return; // display error msg
     }
   }
@@ -65,12 +71,6 @@ export class FormComponent implements OnInit {
     return this.stepToModelGroup[this.step];
   }
 
-  getParams(groupCode: string): Parameter[] {
-    return this.parameterService.getAllParametersByGroupCode(
-      groupCode,
-      this.params
-    );
-  }
   selectCategory(category: Category): void {
     console.log(category);
     this.divClick?.nativeElement.click();
@@ -86,16 +86,11 @@ export class FormComponent implements OnInit {
       }
     }
   }
-
-  // next(): void {
-  //   let formStep = this.getFormStep();
-  //   if (formStep.valid) {
-  //     this.step++;
-  //   }
-  // }
   prev(): void {
-    
     this.step--;
+  }
 
+  print() {
+    window.print();
   }
 }

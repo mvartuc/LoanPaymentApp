@@ -1,4 +1,6 @@
 <app-header></app-header>
 <app-content>
-    <app-form [categories]="categories" [params]="parameters"></app-form>
+  <ng-container *ngIf="emptyProduct$ | async as product">
+    <app-form [categories]="categories" [product]="product"></app-form>
+  </ng-container>
 </app-content>
