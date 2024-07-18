@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using VakifBankKrediKullandirimAPI;
 using VakifBankKrediKullandirimAPI.Data;
@@ -14,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // ApplicationDbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+  //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+  options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteDatabase"));
 });
 
 // Repositories
