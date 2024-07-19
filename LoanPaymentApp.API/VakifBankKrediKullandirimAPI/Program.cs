@@ -68,6 +68,8 @@ if (app.Environment.IsDevelopment())
     //Seed.SeedData(app);
 }
 
+app.UseHttpsRedirection();
+
 // ------------------- added later ---------------------
 // Enable Cross-Origin Resource Sharing
 app.UseCors(options =>
@@ -79,7 +81,7 @@ app.UseCors(options =>
 // ------------------- end added later -----------------
 
 
-app.UseHttpsRedirection();
+
 
 app.UseAuthorization();
 
