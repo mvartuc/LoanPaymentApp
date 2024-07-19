@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:7217/api"
+  apiUrl: "https://api-loanpaymentapp.mvartuc.dev"
 };
 
 /*
