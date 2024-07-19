@@ -72,7 +72,8 @@ if (app.Environment.IsDevelopment())
 // Enable Cross-Origin Resource Sharing
 app.UseCors(options =>
 {
-    options.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+    var clientUrl = app.Configuration.GetSection("AppSettings:ClientUrl").Value;
+    options.WithOrigins(clientUrl).AllowAnyHeader().AllowAnyMethod();
 });
 // ------------------- end added later -----------------
 
