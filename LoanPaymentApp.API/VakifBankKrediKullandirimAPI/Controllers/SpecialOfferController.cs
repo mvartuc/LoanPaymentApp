@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VakifBankKrediKullandirimAPI.Interfaces;
 using VakifBankKrediKullandirimAPI.Models;
 
 namespace VakifBankKrediKullandirimAPI.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class SpecialOfferController : ControllerBase

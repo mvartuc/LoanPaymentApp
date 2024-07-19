@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VakifBankKrediKullandirimAPI.Data;
 using VakifBankKrediKullandirimAPI.Interfaces;
@@ -6,12 +7,13 @@ using VakifBankKrediKullandirimAPI.Models.Category;
 
 namespace VakifBankKrediKullandirimAPI.Controllers
 {
+    [EnableCors]
     [Route("api/Category")]
     [ApiController]
     public class ProductCategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
-        
+
         public ProductCategoryController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;

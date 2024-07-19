@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VakifBankKrediKullandirimAPI.Interfaces;
 using VakifBankKrediKullandirimAPI.Models;
@@ -7,6 +8,7 @@ using VakifBankKrediKullandirimAPI.Repository;
 
 namespace VakifBankKrediKullandirimAPI.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
