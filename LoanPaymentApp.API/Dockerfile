@@ -1,7 +1,7 @@
 # Use the official ASP.NET Core runtime as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8001
 
 # Copy the database folder to the container
 COPY ./VakifBankKrediKullandirimAPI/Database/ /app/database/
@@ -23,4 +23,4 @@ RUN dotnet publish "VakifBankKrediKullandirimAPI.csproj" -c Release -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN dotnet LoanAPI.dll
+RUN dotnet LoanAPI.dll --urls=0.0.0.0:8001
