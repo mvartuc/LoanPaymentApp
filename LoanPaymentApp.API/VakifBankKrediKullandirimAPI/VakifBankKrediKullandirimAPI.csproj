@@ -5,9 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>cd5262d2-a8dc-4196-8d49-4549253d3adc</UserSecretsId>
+    <AssemblyName>LoanAPI</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="appsettings.json" CopyToPublishDirectory="Always" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />

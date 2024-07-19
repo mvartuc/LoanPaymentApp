@@ -14,6 +14,7 @@ namespace VakifBankKrediKullandirimAPI.Data
         var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
         if (context == null) { throw new NullReferenceException(nameof(context)); }
         context.Database.EnsureCreated();
+
         var categoryRepository = new CategoryRepository(context);
 
         var category_adatli = new ProductParentCategory()
@@ -135,14 +136,14 @@ namespace VakifBankKrediKullandirimAPI.Data
             Code = "5",
             GroupCode = "KodUzunluk",
             Name = "",
-            Description = "5"
+            Description = "8"
           };
           var par_codeChars = new Parameter()
           {
             Code = "6",
             GroupCode = "KodKarakterIcerik",
             Name = "",
-            Description = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            Description = "0123456789"
           };
           var par_defaultBsmv = new Parameter()
           {
@@ -152,9 +153,24 @@ namespace VakifBankKrediKullandirimAPI.Data
             Description = "15"
           };
 
+          var par_equalInstallment = new Parameter()
+          {
+            Code = "1",
+            GroupCode = "VadeHesaplamaTuru",
+            Name = "Eşit Taksit",
+            Description = "Eşit Taksit"
+          };
+          var par_equalTotalAmount = new Parameter()
+          {
+            Code = "0",
+            GroupCode = "VadeHesaplamaTuru",
+            Name = "Eşit Ana Para",
+            Description = "Eşit Ana Para"
+          };
+
           context.Parameters.AddRange(new List<Parameter>()
                     {
-                        par_usageType_none, par_usageType_TP, par_usageType_YP, par_loanYearLimit, par_periodMonthLimit, par_codeLength, par_codeChars, par_defaultBsmv
+                        par_usageType_none, par_usageType_TP, par_usageType_YP, par_loanYearLimit, par_periodMonthLimit, par_codeLength, par_codeChars, par_defaultBsmv, par_equalInstallment, par_equalTotalAmount
                     });
           context.SaveChanges();
         }
@@ -172,15 +188,22 @@ namespace VakifBankKrediKullandirimAPI.Data
         context.SpecialOffers.RemoveRange(context.SpecialOffers);
         context.Parameters.RemoveRange(context.Parameters);
         context.SaveChanges();
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Categories', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Parameters', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('ParentCategories', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Products', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('SpecialOffers', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('DatePart', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Installments', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('RepaymentTerm', RESEED, 0)");
-        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('PaymentPlans', RESEED, 0)");
+        if (context.Database.IsSqlite())
+        {
+          context.Database.ExecuteSqlRaw("DELETE FROM sqlite_sequence");
+        }
+        else if (context.Database.IsSqlServer())
+        {
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Categories', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Parameters', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('ParentCategories', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Products', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('SpecialOffers', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('DatePart', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('Installments', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('RepaymentTerm', RESEED, 0)");
+          context.Database.ExecuteSqlRaw("DBCC CHECKIDENT('PaymentPlans', RESEED, 0)");
+        }
 
         context.SaveChanges();
       }

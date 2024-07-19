@@ -12,10 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // --------------------------  added later -----------------------------
 // ApplicationDbContext
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-  //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-  options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteDatabase"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteDatabase"));
 });
 
 // Repositories
@@ -24,8 +25,6 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ISpecialOfferRepository, SpecialOfferRepository>();
 builder.Services.AddScoped<IPaymentPlanRepository, PaymentPlanRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-
 
 
 builder.Services.AddControllers()
@@ -53,6 +52,12 @@ if (args.Length == 1 && args[0].ToLower() == "seeddata")
 if (args.Length == 1 && args[0].ToLower() == "resetdata")
 {
     Seed.ResetData(app);
+}
+
+if (builder.Configuration.GetSection("AppSettings:ResetAndSeed").Value == "true")
+{
+    Seed.ResetData(app);
+    Seed.SeedData(app);
 }
 
 // Configure the HTTP request pipeline.

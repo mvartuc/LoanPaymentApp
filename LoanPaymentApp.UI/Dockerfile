@@ -1,11 +1,13 @@
-FROM node:alpine
+FROM node:alpine as build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
+COPY . /app
 
-RUN npm install -g @angular/cli@13.0.3
+RUN npm install @angular/cli@13.0.3
 
 RUN npm install
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+EXPOSE 4200
+
+RUN ./node_modules/.bin/ng build --prod
