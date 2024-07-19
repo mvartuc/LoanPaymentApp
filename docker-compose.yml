@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: ./LoanPaymentApp.API
+      dockerfile: Dockerfile
+    ports:
+      - "7217:80"
+  ui:
+    build:
+      context: ./LoanPaymentApp.UI
+      dockerfile: Dockerfile
+    ports:
+      - "4201:4200"
