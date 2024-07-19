@@ -23,4 +23,4 @@ RUN dotnet publish "VakifBankKrediKullandirimAPI.csproj" -c Release -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LoanAPI.dll"]
+CMD ["dotnet", "LoanAPI.dll"]
