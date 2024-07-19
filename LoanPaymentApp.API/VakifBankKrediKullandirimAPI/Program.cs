@@ -75,8 +75,7 @@ app.UseHttpsRedirection();
 app.UseCors(options =>
 {
     var clientUrl = app.Configuration.GetSection("AppSettings:ClientUrl").Value;
-    //options.WithOrigins(clientUrl).AllowAnyHeader().AllowAnyMethod();
-    options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true);
+    options.WithOrigins(clientUrl).AllowAnyHeader().AllowAnyMethod();
 });
 // ------------------- end added later -----------------
 
