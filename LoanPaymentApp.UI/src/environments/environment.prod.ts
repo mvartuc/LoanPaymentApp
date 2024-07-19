@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://x4sksgo:7217/api"
+  apiUrl: "https://x4sksgo:7217/api"
 };
