@@ -10,4 +10,4 @@ services:
       context: ./LoanPaymentApp.UI
       dockerfile: Dockerfile
     ports:
-      - "4201:4200"
+      - "4200:80"
