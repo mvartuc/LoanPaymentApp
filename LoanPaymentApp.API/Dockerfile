@@ -23,4 +23,4 @@ RUN dotnet publish "VakifBankKrediKullandirimAPI.csproj" -c Release -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN dotnet LoanAPI.dll --urls=http://0.0.0.0:8001
+ENTRYPOINT [ "dotnet", "LoanAPI.dll", "--urls=http://0.0.0.0:8001" ]
