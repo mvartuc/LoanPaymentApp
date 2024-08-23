@@ -90,7 +90,7 @@ HP ProDesk G4 400, i5 8500t (6c 6t) 40GB Ram, 2TB nvme + hdd storage.
 
 ## Getting Started
 
-If you wanna run it locally, just download the project files and run `docker build -t loanpaymentapp . && docker run loanpaymentapp` on the project directory.
+If you wanna run it locally, just download the project files and run `docker compose up -d` on the project directory.
 
 <!-- ### Prerequisites
 
